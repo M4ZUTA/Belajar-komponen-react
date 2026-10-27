@@ -3,7 +3,7 @@ import Heading from "@/Pages/Admin/Components/Heading";
 import Button from "@/Pages/Admin/Components/Button";
 import Card from "@/Pages/Admin/Components/Card";
 
-const AdminLayout = () => {
+const AdminLayout = ({ onLogout }) => {
   const handleEdit = (nama) => {
     alert(`Edit data ${nama}`);
   };
@@ -71,7 +71,10 @@ const AdminLayout = () => {
                     Profile
                   </a>
                   <button
-                    onClick={() => alert("Logout berhasil!")}
+                    onClick={() => {
+                      alert("Logout berhasil!");
+                      onLogout();
+                    }}
                     className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                   >
                     Logout

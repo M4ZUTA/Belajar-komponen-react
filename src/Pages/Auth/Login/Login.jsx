@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "@/Pages/Auth/Components/Input";
 import Label from "@/Pages/Auth/Components/Label";
 import Button from "@/Pages/Auth/Components/Button";
@@ -8,12 +8,33 @@ import Heading from "@/Pages/Auth/Components/Heading";
 import Form from "@/Pages/Auth/Components/Form";
 import AuthLayout from "@/Pages/Auth/AuthLayout";
 
-const Login = () => {
+// Akun dummy untuk latihan (belum ada backend)
+const DUMMY_EMAIL = "admin@mail.com";
+const DUMMY_PASSWORD = "admin123";
+
+const Login = ({ onLogin }) => {
+  const [error, setError] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+
+    if (data.get("email") === DUMMY_EMAIL && data.get("password") === DUMMY_PASSWORD) {
+      setError("");
+      onLogin();
+    } else {
+      setError("Email atau password salah!");
+    }
+  };
+
   return (
     <AuthLayout>
       <Card>
         <Heading as="h2">Login</Heading>
-        <Form>
+        {error && (
+          <p className="mb-4 px-4 py-2 text-sm text-red-700 bg-red-100 rounded-lg">{error}</p>
+        )}
+        <Form onSubmit={handleSubmit}>
           <div>
             <Label htmlFor="email">Email</Label>
             <Input type="email" name="email" placeholder="Masukkan email" required />
